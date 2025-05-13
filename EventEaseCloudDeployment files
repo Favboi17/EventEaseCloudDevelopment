@@ -1,0 +1,71 @@
+--using Microsoft.AspNetCore.Mvc;
+public class VenuesController : Controller
+{
+   // CRUD Actions for Venues
+}
+public class EventsController : Controller
+public class BookingsController : Controller
+
+public class Venue
+{
+   public int VenueID { get; set; }
+   public string Name { get; set; }
+   public string Description { get; set;}
+   public string Location { get; set;}
+   public int capacity { get; set;}
+   public string ImageUrl {get; set;}
+   public string Status {get; set; }
+
+   public ICollection<Event> Events { get; set; }
+}
+public class Event
+{
+   public int EventID { get; set; }
+   public string Name { get; set; }
+   public string Description { get; set;}
+   public string Location { get; set;}
+   public int capacity { get; set;}
+   public string ImageUrl {get; set;}
+   public string Status {get; set; }
+
+   public ICollection<Event> Events { get; set; }
+}
+public class Booking
+{
+   public int BookingID { get; set; }
+   public string Name { get; set; }
+   public string Description { get; set;}
+   public int capacity { get; set;}
+   public string ImageUrl {get; set;}
+   public string Status {get; set; }
+
+   public ICollection<Event> Events { get; set; }
+}
+
+--EventEaseDB_Script
+CREATE TABLE Venue (
+             VenueID INT PRIMARY KEY IDENTITY (1, 1),
+             Name NVARCHAR(100),
+             Description NVARCHAR(MAX),
+             Location NVARCHAR(100),
+             Capacity INT,
+             ImageUrl NVARCHAR(255),
+             Status NVARCHAR (20),
+);
+
+CREATE TABLE Event (
+            EventId INT PRIMARY KEY IDENTITY (1, 1),
+            Name NVARCHAR(100)
+            Description NVARCHAR(MAX)
+            StartDate DATETIME,
+            EndDate DATETIME,
+            OrganizerName NVARCHAR(100),
+           VenueID INT FOREIGN KEY RERENCES Venue(VenueID)
+);
+CREATE TABLE Booking (
+             BookingID INT PRIMARY KEY IDENTITY (1, 1),
+             EventID INT FOREIGN KEY REFERENCES Event(EventID),
+             BookingSpecialistName NVARCHAR(100),
+             BookingDate DATETIME,
+             Status NVARCHAR(20)
+);
